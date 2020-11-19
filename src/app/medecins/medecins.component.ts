@@ -11,6 +11,9 @@ import { $ } from 'protractor';
 export class MedecinsComponent implements OnInit {
   lblMessage: string = "Erreur";
   nomEleve: string ;
+  lesClasses: Array<any> = [
+    ''
+  ]
   lesEleve: Array<any>;
   eleve: any;
   legende: string;
@@ -21,6 +24,7 @@ export class MedecinsComponent implements OnInit {
   deleteHidden: boolean = false;
   tabHidden : boolean = false;
   confirmDeleteHidden : boolean = false;
+  isOk:boolean = true;
   nom: string;
   prenom: string;
   adresse: string;
@@ -41,6 +45,16 @@ export class MedecinsComponent implements OnInit {
       this.lesEleve = data
       this.lesEleve.forEach(eleve => {
         eleve.classe = eleve.classe.toUpperCase()
+
+        this.lesClasses.forEach(classe => {
+          if(classe == eleve.classe)
+            this.isOk = false;
+        })
+        if(this.isOk == true)
+        {
+          this.lesClasses.push(eleve.classe)
+        }
+        this.isOk = true;
       });
     })
     
@@ -92,8 +106,8 @@ export class MedecinsComponent implements OnInit {
   }
 
   filtreClasse(classe: any){
-    console.log("paasage")
-    this.apiService.filtreClasse(classe.classe).subscribe((data) => this.lesEleve = data)
+    console.log(this.lesClasses)
+    this.apiService.filtreClasse(classe).subscribe((data) => this.lesEleve = data)
     this.lesEleve.forEach(eleve => {
       eleve.classe = eleve.classe.toUpperCase()
     });

@@ -86,9 +86,9 @@
 
 <div class="search">
     <input type="text" [(ngModel)]="nomEleve" (keyup)="filtreEleve()" style="margin-left: 20px;margin-bottom: 5px">
-    <select name="" id="">
-        <option *ngFor="let classe of lesEleve" (mouseup)="filtreClasse(classe)">
-            {{ classe.classe }}
+    <select name="filtreClasse" (change)="filtreClasse($event.target.value)">
+        <option *ngFor="let classe of lesClasses" value="{{classe}}">
+            {{ classe }}
         </option>
     </select>
 </div>
