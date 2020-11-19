@@ -27,12 +27,13 @@ export class ConnexionComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  onSubmit(form: NgForm) {
+  onSubmit() {
     this.apiService.connexion(this.username,this.password)
     .subscribe(
       (data)=>{
           console.log(data);
           this.visiteur = data;
+          this.apiService.visiteur = data;
           this.router.navigate(['acceuil']);
  }
 ,(error)=>{

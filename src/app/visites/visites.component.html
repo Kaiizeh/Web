@@ -1,2 +1,47 @@
 <app-navbar></app-navbar>
-<p>visites works!</p>
+<app-tab-sort>bonjour</app-tab-sort>
+<nav class="navbar navbar-dark bg-dark">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" (click)="modifierRapport()">Modifier un rapport</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" (click)="ajouterRapport()">Ajouter un rapport</a>
+        </li>
+    </ul>
+</nav>
+<div class="col-lg-6">
+    <div class="form-group" *ngIf="gestionMajRapport">
+        <input type="date" placeholder="Date de consultation" [(ngModel)]="date" (keyup)="chargerVisites()" />
+    </div>
+</div>
+<div class="list-group">
+    <ul>
+        <li class="list-group-item" *ngFor="let rapport of lesRapport" (click)="selectionner(rapport)">
+            {{rapport.nomMedecin }} {{ rapport.prenomMedecin }}
+        </li>
+    </ul>
+</div>
+
+
+<form class="needs-validation" novalidate name="frmRapport" *ngIf="medecin != null" (ngSubmit)="valider(frmRapport)">
+
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="addr">Motif</label>
+            <textarea rows="3" class="form-control" id="motif" cols="30" required="true" [(ngModel)]="rapportCourant.motif"
+                name="motif" required></textarea>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="addr">Bilan</label>
+            <textarea rows="3" class="form-control" id="bilan" cols="30" required="true" [(ngModel)]="rapportCourant.bilan"
+                name="bilan" required></textarea>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <input class="btn btn-primary" type="submit" value="Send"><br>
+    </div>
+</form>

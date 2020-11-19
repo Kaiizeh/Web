@@ -1,23 +1,20 @@
 <div class="card">
-    <p style="font-size: 24px; color: #272727">Gestion des rapports de visite</p>
+    <p style="font-size: 24px; color: #272727">Gestion des élèves</p>
     <div class="card-body">
         <p style="font-size: 18px; color: #272727">{{ title }}</p>
-        <div class="alert alert-danger" role="alert" [hidden]="!isHidden">
-           {{ lblMessage }}
-        </div>
-           
 
-        <form #myform = "ngForm" (ngSubmit) = "onSubmit(myform)" class="form-group row">
-            <input type = "text" name = "user" placeholder = "username" [(ngModel)] = "username">
-            <br/>
-          
-            <input type = "password" name = "psw" placeholder = "password" [(ngModel)] = "password">
-            <br/>
-          
-            <input type = "submit" value = "Send">
-          </form>
-        
-        
+
+        <form #myform="ngForm" (ngSubmit)="onSubmit(myform)" class="form-group row">
+            <input type="text" name="user" placeholder="username" [(ngModel)]="username">
+            <br />
+
+            <input type="password" name="psw" placeholder="password" [(ngModel)]="password">
+            <br />
+
+            <input type="submit" value="Send">
+        </form>
+
+
 
     </div>
 </div>

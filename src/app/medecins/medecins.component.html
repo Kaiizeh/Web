@@ -1,41 +1,87 @@
 <app-navbar></app-navbar>
 <h2>
- {{legende}}
+    {{legende}}
 </h2>
-<nav class="navbar navbar-dark bg-dark" [hidden]="estCacheMenu">
- <ul class="navbar-nav mr-auto">
-    <li class="nav-item">
-        <a class="nav-link" (click)="derniersRapports()">Derniers rapports</a>
-        <table class="table table-bordered" style="background-color: #f1f1f1f1;" *ngIf="rapportHidden">
-            <tr>
-                <th>Date</th>
-                <th>motif</th>
-                <th>Bilan</th>
-                <th>Nom du visiteur</th>
-            </tr>
-            <tr *ngFor="let rapport of lesRapports">
-                <td>{{rapport.date }} </td>
-                <td>{{rapport.motif }} </td>
-                <td>{{rapport.bilan }} </td>
-                <td>{{rapport.nom }} </td>
-            </tr>
-        </table>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" (click)="majMedecin()">MAJ</a>
-    </li>
- </ul>
-</nav>
-<div class="col-lg-6">
-    <div class="form-group">
-        <input type="search" placeholder="Nom du médecin..." [(ngModel)]="nomMedecin" (keyup)="charger()" />
-    </div>
-</div>
-<div class="list-group">
-    <ul>
-        <li class="list-group-item" *ngFor="let medecin of lesMedecins" (click) = "selectionner(medecin)">
-            {{medecin.nom}} {{medecin.prenom}} ;dep : {{medecin.departement}}
+<nav class="navbar navbar-dark bg-dark">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" (click)="afficherFormAjoutEleve()">Ajouter un élève</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" (click)="afficherMaj()">Mise a jour d'un élève</a>
         </li>
     </ul>
-</div>   
-
+</nav>
+<form class="needs-validation" novalidate name="frmMedecin" *ngIf="ajouterHidden" (ngSubmit)="ajouterEleve()">
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="id">Nom</label>
+            <input type="text" class="form-control" id="id" placeholder="Nom" required="true"
+                [(ngModel)]="nom" name="id">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="prenom">Prénom</label>
+            <input type="text" class="form-control" id="prenom" placeholder="Prénom" required="true"
+                [(ngModel)]="prenom" name="prenom">
+        </div>
+    </div>
+    
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="addr">Adresse</label>
+            <textarea rows="3" class="form-control" id="addr" cols="30" required="true" [(ngModel)]="adresse"
+                name="adr" required></textarea>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="tel">Téléphone</label>
+            <input type="text" class="form-control" id="tel" placeholder="Téléphone" required="true"
+                [(ngModel)]="tel" name="tel">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="specialite">Classe</label>
+            <input type="text" class="form-control" id="specialite" placeholder="Clase" required="true"
+                [(ngModel)]="classe" name="spec">
+            <div class="valid-feedback">
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <input class="btn btn-primary" type="submit" value="Send"><br>
+    </div>
+    <div class="alert alert-danger" *ngIf="afficherMessage">{{ lblMessage }}</div>
+</form>
+<table class="table table-bordered" style="background-color: #f1f1f1f1;">
+    <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Adresse</th>
+        <th>Téléphone</th>
+        <th>Classe</th>
+        <th>Modifier</th>
+        <th>Supprimer</th>
+    </tr>
+    <tr *ngFor="let eleve of lesEleve" (click)="selectionner(eleve)">
+        <td>{{eleve.ideleve }} </td>
+        <td>{{eleve.nom }} </td>
+        <td>{{eleve.prenom }} </td>
+        <td>{{eleve.adresse }} </td>
+        <td>{{eleve.tel }} </td>
+        <td>{{eleve.classe }} </td>
+    </tr>
+    <tr *ngFor="let eleve of lesEleves">
+        <td>Ajouter</td>
+        <td>... </td>
+        <td>... </td>
+        <td>... </td>
+        <td>... </td>
+        <td>... </td>
+        <td> + </td>
+    </tr>
+</table>
