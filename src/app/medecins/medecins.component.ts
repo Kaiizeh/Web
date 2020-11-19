@@ -38,6 +38,7 @@ export class MedecinsComponent implements OnInit {
 
   ajouterEleve() {
     this.apiService.AjouterUnEleve(this.nom, this.prenom, this.adresse, this.tel, this.classe).subscribe((data) => console.log(data))
+    this.ajouterHidden = false;
   }
 
   chargerEleve() {
@@ -76,7 +77,6 @@ export class MedecinsComponent implements OnInit {
 
   modifierEleve() {
     this.apiService.majEleve(this.eleve.ideleve, this.eleve.adresse, this.eleve.tel, this.eleve.classe).subscribe((data) =>{
-      console.log(data);
       this.majHidden = false;
     })
   }
