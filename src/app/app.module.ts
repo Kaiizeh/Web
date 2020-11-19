@@ -7,7 +7,6 @@ import { ConnexionComponent } from './connexion/connexion.component';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MedecinsComponent } from './medecins/medecins.component';
-import { VisitesComponent } from './visites/visites.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AcceuilComponent } from './acceuil/acceuil.component';
@@ -18,7 +17,6 @@ import { AcceuilComponent } from './acceuil/acceuil.component';
     ConnexionComponent,
     NavbarComponent,
     MedecinsComponent,
-    VisitesComponent,
     AcceuilComponent,
   ],
   imports: [

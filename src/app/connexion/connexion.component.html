@@ -4,7 +4,7 @@
         <p style="font-size: 18px; color: #272727">{{ title }}</p>
 
 
-        <form #myform="ngForm" (ngSubmit)="onSubmit(myform)" class="form-group row">
+        <form #myform="ngForm" (ngSubmit)="onSubmit()" class="form-group row">
             <input type="text" name="user" placeholder="username" [(ngModel)]="username">
             <br />
 

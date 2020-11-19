@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApService } from '../service/ap.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  visiteur : any;
+  constructor(private apiService : ApService) { }
 
   ngOnInit(): void {
+    this.visiteur = this.apiService.visiteur;
   }
+
 
 }

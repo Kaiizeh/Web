@@ -41,8 +41,8 @@ export class ApService {
     return req;
   }
 
-  public chargerRapports(idMedecin: Number): Observable<string[]> {
-    let url: string = this.urlDomaine + "/rapports/" + idMedecin;
+  public filtreEleve(nom: string): Observable<string[]> {
+    let url: string = this.urlDomaine + "/eleves?nom="+ nom;
     let req = this.http.get<string[]>(url)
       .pipe(
         retry(1),
@@ -51,9 +51,8 @@ export class ApService {
     return req;
   }
 
-  public chargerRapportsParDate(date: Date, idVisiteur: string): Observable<string[]> {
-    let url: string = this.urlDomaine + "/rapports_a_date?idVisiteur=" + idVisiteur
-      + "&date=" + date;
+  public filtreClasse(classe: string): Observable<string[]> {
+    let url: string = this.urlDomaine + "/eleves?classe="+ classe;
     let req = this.http.get<string[]>(url)
       .pipe(
         retry(1),
@@ -61,9 +60,9 @@ export class ApService {
       );
     return req;
   }
-  public majMedecin(id: string, adresse: string, tel: string, spe: string) {
-    let url: string = this.urlDomaine + "/majmedecin?idmedecin=" + id + "&adresse=";
-    url += adresse + "&tel=" + tel + "&specialite=" + spe;
+  
+  public delete(id: string) {
+    let url: string = this.urlDomaine + "/supprEleve?ideleve=" + id;
     let req = this.http.get<string[]>(url)
       .pipe(
         retry(1),

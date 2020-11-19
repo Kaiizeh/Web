@@ -3,17 +3,15 @@ import { Routes, RouterModule } from '@angular/router';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MedecinsComponent } from './medecins/medecins.component';
-import { VisitesComponent } from './visites/visites.component';
 import { AcceuilComponent } from './acceuil/acceuil.component';
 
 
 
 const routes: Routes = [
 
-  { path: '', component: ConnexionComponent },
-  { path: 'acceuil', component: AcceuilComponent },
+  { path: '', component: AcceuilComponent },
+  { path: 'connexion', component: ConnexionComponent },
   { path: 'medecins', component: MedecinsComponent },
-  { path: 'visiteurs', component: VisitesComponent }
 
 ];
 

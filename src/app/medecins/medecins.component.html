@@ -1,87 +1,173 @@
 <app-navbar></app-navbar>
-<h2>
-    {{legende}}
-</h2>
-<nav class="navbar navbar-dark bg-dark">
-    <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-            <a class="nav-link" (click)="afficherFormAjoutEleve()">Ajouter un élève</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" (click)="afficherMaj()">Mise a jour d'un élève</a>
-        </li>
-    </ul>
-</nav>
-<form class="needs-validation" novalidate name="frmMedecin" *ngIf="ajouterHidden" (ngSubmit)="ajouterEleve()">
-    <div class="form-row">
-        <div class="col-md-4 mb-3">
-            <label for="id">Nom</label>
-            <input type="text" class="form-control" id="id" placeholder="Nom" required="true"
-                [(ngModel)]="nom" name="id">
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="col-md-4 mb-3">
-            <label for="prenom">Prénom</label>
-            <input type="text" class="form-control" id="prenom" placeholder="Prénom" required="true"
-                [(ngModel)]="prenom" name="prenom">
-        </div>
-    </div>
-    
-    <div class="form-row">
-        <div class="col-md-4 mb-3">
-            <label for="addr">Adresse</label>
-            <textarea rows="3" class="form-control" id="addr" cols="30" required="true" [(ngModel)]="adresse"
-                name="adr" required></textarea>
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="col-md-4 mb-3">
-            <label for="tel">Téléphone</label>
-            <input type="text" class="form-control" id="tel" placeholder="Téléphone" required="true"
-                [(ngModel)]="tel" name="tel">
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="col-md-4 mb-3">
-            <label for="specialite">Classe</label>
-            <input type="text" class="form-control" id="specialite" placeholder="Clase" required="true"
-                [(ngModel)]="classe" name="spec">
-            <div class="valid-feedback">
+<div style="padding: 10px 50px 10px 50px;" *ngIf="ajouterHidden">
+    <form class="needs-validation" novalidate name="ajouterEleve" (ngSubmit)="ajouterEleve()">
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="id">Nom</label>
+                <input type="text" class="form-control" id="id" placeholder="Nom" required="true" [(ngModel)]="nom"
+                    name="id">
             </div>
         </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="prenom">Prénom</label>
+                <input type="text" class="form-control" id="prenom" placeholder="Prénom" required="true"
+                    [(ngModel)]="prenom" name="prenom">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="addr">Adresse</label>
+                <textarea rows="3" class="form-control" id="addr" cols="30" required="true" [(ngModel)]="adresse"
+                    name="adr" required></textarea>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="tel">Téléphone</label>
+                <input type="text" class="form-control" id="tel" placeholder="Téléphone" required="true"
+                    [(ngModel)]="tel" name="tel">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="specialite">Classe</label>
+                <input type="text" class="form-control" id="specialite" placeholder="Classe" required="true"
+                    [(ngModel)]="classe" name="spec">
+                <div class="valid-feedback">
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <input class="btn btn-success" type="submit" value="Confirmer">
+            <input class="btn btn-danger" type="button" value="Annuler" (click)="afficherFormAjoutEleve()">
+        </div>
+        <div class="alert alert-danger" *ngIf="afficherMessage">{{ lblMessage }}</div>
+    </form>
+</div>
+
+<div style="padding: 10px 50px 10px 50px;" *ngIf="majHidden">
+    <form class="needs-validation" novalidate name="modifierEleve" (ngSubmit)="modifierEleve()">
+        <div class="card" style="width: 250px; text-align:center;">
+            <div class="card-body">
+                {{eleve.ideleve}} : {{eleve.nom}} {{eleve.prenom}}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="addr">Adresse</label>
+                <textarea rows="3" class="form-control" id="addr" cols="30" required="true" [(ngModel)]="eleve.adresse"
+                    name="adr" required></textarea>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="tel">Téléphone</label>
+                <input type="text" class="form-control" id="tel" placeholder="Téléphone" required="true"
+                    [(ngModel)]="eleve.tel" name="tel">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="specialite">Classe</label>
+                <input type="text" class="form-control" id="specialite" placeholder="Classe" required="true"
+                    [(ngModel)]="eleve.classe" name="spec">
+                <div class="valid-feedback">
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <input class="btn btn-success" type="submit" value="Confirmer">
+            <input class="btn btn-danger" type="button" value="Annulé" (click)="afficherModif(eleve)"><br>
+        </div>
+    </form>
+</div>
+
+<div class="search">
+    <input type="text" [(ngModel)]="nomEleve" (keyup)="filtreEleve()" style="margin-left: 20px;margin-bottom: 5px">
+    <select name="" id="">
+        <option *ngFor="let classe of lesEleve" (mouseup)="filtreClasse(classe)">
+            {{ classe.classe }}
+        </option>
+    </select>
+</div>
+
+<div style="padding-left: 20px; padding-right:20px" *ngIf="!ajouterHidden && !majHidden">
+    <table class="table table-bordered" style="background-color: #f1f1f1f1;">
+        <tr style="text-align:center">
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Adresse</th>
+            <th>Téléphone</th>
+            <th>Classe</th>
+            <th>Modifier</th>
+            <th>Supprimer</th>
+        </tr>
+        <tr *ngFor="let eleve of lesEleve" (click)="selectionner(eleve)" style="text-align:center">
+            <td>{{eleve.ideleve }} </td>
+            <td>{{eleve.nom }} </td>
+            <td>{{eleve.prenom }} </td>
+            <td>{{eleve.adresse }} </td>
+            <td>{{eleve.tel }} </td>
+            <td>{{eleve.classe }} </td>
+            <td (click)="afficherModif(eleve)" class="modifier">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear-fill" fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 0 0-5.86 2.929 2.929 0 0 0 0 5.858z" />
+                </svg>
+            </td>
+            <td class="trash" (click)="afficherDelete(eleve)">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z" />
+                </svg> </td>
+        </tr>
+    </table>
+</div>
+
+<div class="modalScreen" *ngIf="deleteHidden">
+    <div class="modalWindow">
+        <div style="color: black;">
+            Êtes-vous sûr de vouloir supprimer {{ eleve.prenom }} {{ eleve.nom }} ?<br>
+        </div>
+
+        <br>
+        <div class="groupe-boutton">
+            <button class="btn btn-success" (click)="deleteEleve(eleve.eleveid)" style="margin-right: 20px;"> Oui
+            </button>
+            <button class="btn btn-danger" (click)="afficherDelete(eleve)" value="Non"> Non </button>
+        </div>
+
     </div>
-    <div class="form-row">
-        <input class="btn btn-primary" type="submit" value="Send"><br>
+</div>
+
+<div class="modalScreen" *ngIf="confirmDeleteHidden">
+    <div class="modalWindow">
+        <div style="color: black;">
+            <div class="check_mark">
+                <div class="sa-icon sa-success animate">
+                    <span class="sa-line sa-tip animateSuccessTip"></span>
+                    <span class="sa-line sa-long animateSuccessLong"></span>
+                    <div class="sa-placeholder"></div>
+                    <div class="sa-fix"></div>
+                </div>
+            </div>
+            Suppression Réussie !<br>
+        </div>
+        <button type="button" class="btn btn-success"  (click)="afficherConfirmDelete()">fermer</button>
     </div>
-    <div class="alert alert-danger" *ngIf="afficherMessage">{{ lblMessage }}</div>
-</form>
-<table class="table table-bordered" style="background-color: #f1f1f1f1;">
-    <tr>
-        <th>ID</th>
-        <th>Nom</th>
-        <th>Prénom</th>
-        <th>Adresse</th>
-        <th>Téléphone</th>
-        <th>Classe</th>
-        <th>Modifier</th>
-        <th>Supprimer</th>
-    </tr>
-    <tr *ngFor="let eleve of lesEleve" (click)="selectionner(eleve)">
-        <td>{{eleve.ideleve }} </td>
-        <td>{{eleve.nom }} </td>
-        <td>{{eleve.prenom }} </td>
-        <td>{{eleve.adresse }} </td>
-        <td>{{eleve.tel }} </td>
-        <td>{{eleve.classe }} </td>
-    </tr>
-    <tr *ngFor="let eleve of lesEleves">
-        <td>Ajouter</td>
-        <td>... </td>
-        <td>... </td>
-        <td>... </td>
-        <td>... </td>
-        <td>... </td>
-        <td> + </td>
-    </tr>
-</table>
+</div>
+
+<div style="margin-bottom: 20px; margin-left: 20px;">
+    <button type="button" class="btn btn-success" (click)="afficherFormAjoutEleve()"
+        *ngIf="!ajouterHidden && !majHidden" style=" text-align:center">
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-circle-fill" fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg" style="margin-right:5px">
+            <path fill-rule="evenodd"
+                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+        </svg>Ajouter un élève</button>
+</div>

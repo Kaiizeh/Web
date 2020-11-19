@@ -34,7 +34,7 @@ export class ConnexionComponent implements OnInit {
           console.log(data);
           this.visiteur = data;
           this.apiService.visiteur = data;
-          this.router.navigate(['acceuil']);
+          this.router.navigate(['/']);
  }
 ,(error)=>{
   this.isHidden = false;
