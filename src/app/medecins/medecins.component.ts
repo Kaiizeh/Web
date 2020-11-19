@@ -39,6 +39,7 @@ export class MedecinsComponent implements OnInit {
   ajouterEleve() {
     this.apiService.AjouterUnEleve(this.nom, this.prenom, this.adresse, this.tel, this.classe).subscribe((data) => console.log(data))
     this.ajouterHidden = false;
+    this.chargerEleve();
   }
 
   chargerEleve() {

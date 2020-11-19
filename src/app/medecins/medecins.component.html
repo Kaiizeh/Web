@@ -84,7 +84,7 @@
     </form>
 </div>
 
-<div class="search">
+<div class="search" *ngIf="!majHidden && !ajouterHidden">
     <input type="text" [(ngModel)]="nomEleve" (keyup)="filtreEleve()" style="margin-left: 20px;margin-bottom: 5px">
     <select name="filtreClasse" (change)="filtreClasse($event.target.value)">
         <option *ngFor="let classe of lesClasses" value="{{classe}}">
